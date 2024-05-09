@@ -27,7 +27,7 @@ def is_url(url_string: str) -> bool:
 def main():
     # getting args
     args = get_args()
-    path = args.output.strip()
+    path = os.path.abspath(args.output.strip())
 
     # Cannot provide video and playlist urls
     if args.video and args.playlist:
@@ -42,7 +42,7 @@ def main():
     if not os.path.exists(path):
         print(f"Error: {path} does not exist")
         return
-    
+
     # Validating quality
     if args.quality < 1 or args.quality > 3:
         print(f"Error: {args.quality} is not a valid quality")
@@ -51,7 +51,7 @@ def main():
     # Creating directory
     if args.dir:
         try:
-            path = os.path.abspath(os.path.join(path, args.dir.strip()))
+            path = os.path.join(path, args.dir.strip())
             if not os.path.exists(path):
                 os.mkdir(path)
         except Exception as e:
