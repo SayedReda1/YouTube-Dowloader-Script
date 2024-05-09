@@ -15,7 +15,7 @@ def fetch_stream(youtube: YouTube, quality):
     elif quality == 3:
         stream = streams.get_highest_resolution()
     else:
-        stream = streams[len(streams)/2]
+        stream = streams[len(streams)//2]
     
     return stream
         

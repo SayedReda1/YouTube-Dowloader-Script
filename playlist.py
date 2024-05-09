@@ -2,6 +2,7 @@ import os
 from pytube import Playlist
 import video
 
+filter
 
 def download_playlist(url, path = '.', quality = 3):
     playlist = Playlist(url)
@@ -16,12 +17,6 @@ def download_playlist(url, path = '.', quality = 3):
         print("Exiting...")
         return
     print("="*50)
-
-    # Prepare the directory
-    path = os.path.abspath(os.path.join(path, playlist.title.replace('/', '').replace('\\', '')))
-    if not os.path.exists(path):
-        print("Creating directory...")
-        os.makedirs(path)
     
     # Starting to download
     total_size = 0
@@ -32,12 +27,13 @@ def download_playlist(url, path = '.', quality = 3):
         if filesize:
             total_size += filesize
             n += 1
+    print("Done")
 
     # Summary
-    print("Done")
     print("="*50)
     print(f"Total Size: {total_size/1024**2:.2f} MB")
     print(f"Downloaded videos: {n}")
+    print(f"Saved in '{path}'")
     print("="*50)
 
 def main():
