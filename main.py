@@ -48,28 +48,18 @@ def main():
         print(f"Error: {args.quality} is not a valid quality")
         return
 
-    # Creating directory
-    if args.dir:
-        try:
-            path = os.path.join(path, args.dir.strip())
-            if not os.path.exists(path):
-                os.mkdir(path)
-        except Exception as e:
-            print("Error:", str(e))
-            return
-
     # Starting to download
     if args.video:
         # validate video url
         if (is_url(args.video.strip())):
-            video.download_video(args.video.strip(), path, args.quality)
+            video.download_video(args.video.strip(), args.dir, path, args.quality)
         else:
             print("Entered video url is invalid")
 
     else:
         # validate video url
         if (is_url(args.playlist.strip())):
-            playlist.download_playlist(args.playlist.strip(), path, args.quality)
+            playlist.download_playlist(args.playlist.strip(), args.dir, path, args.quality)
         else:
             print("Entered playlist url is invalid")
 

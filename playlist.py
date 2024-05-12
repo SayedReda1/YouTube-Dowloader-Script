@@ -2,9 +2,15 @@ import os
 from pytube import Playlist
 import video
 
-filter
+def generate_path(path, dirname):
+    path = os.path.abspath(path)
+    if dirname:
+        path = os.path.join(path, dirname)
+        if not os.path.exists(path):
+            os.mkdir(path)
+    return path
 
-def download_playlist(url, path = '.', quality = 3):
+def download_playlist(url, dirname = None, path = '.', quality = 3):
     playlist = Playlist(url)
     
     print("="*50)
@@ -17,6 +23,9 @@ def download_playlist(url, path = '.', quality = 3):
         print("Exiting...")
         return
     print("="*50)
+
+    # Creating the dir
+    path = generate_path(path, dirname)
     
     # Starting to download
     total_size = 0

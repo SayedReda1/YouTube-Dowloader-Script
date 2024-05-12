@@ -1,7 +1,7 @@
 import os
 from pytube import YouTube, request
 from tqdm import tqdm
-import time
+from playlist import generate_path
 
 def fetch_stream(youtube: YouTube, quality):
     streams = youtube.streams.filter(progressive=True, file_extension='mp4').order_by('resolution')
@@ -20,7 +20,7 @@ def fetch_stream(youtube: YouTube, quality):
     return stream
         
 
-def download_video(url, output_path, quality):
+def download_video(url, dirname = None, path = '.', quality = 3):
     # Changing to update progressbar after each 100 KB
     request.default_range_size = 3 * 1024 * 1024
     
@@ -31,6 +31,9 @@ def download_video(url, output_path, quality):
     if not video:
         print(f"Error: Couldn't find a suitable stream for '{yt.title}'")
         return
+
+    # Creating dir
+    path = generate_path(path, dirname)
 
     # Printing before the progressbar appears
     print(f"Downloading '{video.title}'")
@@ -47,7 +50,7 @@ def download_video(url, output_path, quality):
     yt.register_on_progress_callback(update_progress)
         
     try:
-        video.download(output_path=output_path)
+        video.download(output_path=path)
         return total_size
     except Exception as e:
         print("Error:", str(e))
