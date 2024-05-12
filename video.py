@@ -20,7 +20,7 @@ def fetch_stream(youtube: YouTube, quality):
     return stream
         
 
-def download_video(url, dirname = None, path = '.', quality = 3):
+def download_video(url, quality = 3, path = '.', dirname = None):
     # Changing to update progressbar after each 100 KB
     request.default_range_size = 3 * 1024 * 1024
     

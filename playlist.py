@@ -5,12 +5,12 @@ import video
 def generate_path(path, dirname):
     path = os.path.abspath(path)
     if dirname:
-        path = os.path.join(path, dirname)
+        path = os.path.join(str(path), str(dirname))
         if not os.path.exists(path):
             os.mkdir(path)
     return path
 
-def download_playlist(url, dirname = None, path = '.', quality = 3):
+def download_playlist(url, quality = 3, path = '.', dirname = None):
     playlist = Playlist(url)
     
     print("="*50)
@@ -32,7 +32,7 @@ def download_playlist(url, dirname = None, path = '.', quality = 3):
     n = 0
     for i, url in enumerate(playlist.url_generator(), 1):
         print(f"\n[{i}/{playlist.length}]", end=' ')
-        filesize = video.download_video(url, path, quality)
+        filesize = video.download_video(url, quality, path)
         if filesize:
             total_size += filesize
             n += 1
@@ -47,7 +47,7 @@ def download_playlist(url, dirname = None, path = '.', quality = 3):
 
 def main():
     path = "F:\\Videos"
-    download_playlist("https://youtube.com/playlist?list=PLhfrWIlLOoKOf1Ru_TFAnubVuWc87i-7z&si=FjFGl5RKdxcaV2AR", path, True)
+    download_playlist("https://youtube.com/playlist?list=PLhfrWIlLOoKOf1Ru_TFAnubVuWc87i-7z&si=FjFGl5RKdxcaV2AR", path, "Test", True)
 
 
 if __name__ == "__main__":
